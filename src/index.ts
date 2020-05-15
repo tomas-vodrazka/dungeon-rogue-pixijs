@@ -1,14 +1,12 @@
 import { Application, Graphics } from "pixi.js";
 
 import { baseRoom } from "./rooms";
-import { TILE_SIZE } from "./config";
+import { TILE_SIZE, SIZE } from "./config";
 import { renderRoom } from "./renderer";
 
-const numTiles = baseRoom.length;
-
 const app = new Application({
-  width: TILE_SIZE * 100,
-  height: TILE_SIZE * 100,
+  width: SIZE,
+  height: SIZE,
 });
 app.renderer.backgroundColor = 0xdddddd;
 renderRoom(app, baseRoom);
