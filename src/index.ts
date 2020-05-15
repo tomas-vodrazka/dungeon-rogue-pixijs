@@ -1,10 +1,10 @@
-function component() {
-  const element = document.createElement("div");
+import { Application } from "pixi.js";
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = "Dungeon Rogue";
+// The application will create a renderer using WebGL, if possible,
+// with a fallback to a canvas render. It will also setup the ticker
+// and the root stage PIXI.Container.
+const app = new Application();
 
-  return element;
-}
-
-document.body.appendChild(component());
+// The application will create a canvas element for you that you
+// can then insert into the DOM.
+document.body.appendChild(app.view);
