@@ -1,6 +1,7 @@
 import { Application, Graphics } from "pixi.js";
-import { Room, Direction, DirectionChange, SpriteTilePosition } from "./types";
+import { Room, Direction, DirectionChange, Coordinates } from "./types";
 import { TILE_SIZE, NUM_OF_TILES } from "./config";
+import { tileToPosition, positionToTile } from "./positionService";
 
 export function renderRoom(app: Application, room: Room): void {
   for (let i = 0; i < NUM_OF_TILES; i += 1) {
@@ -20,21 +21,18 @@ export function movePlayer(
   room: Room,
   direction: Direction
 ): void {
-  const playerTileX = player.position.x / TILE_SIZE;
-  const playerTileY = player.position.y / TILE_SIZE;
-  const newPosition: SpriteTilePosition = [
-    playerTileX + DirectionChange[direction][0],
-    playerTileY + DirectionChange[direction][1],
-  ];
-  if (isPositionValid(newPosition, room)) {
-    player.position.x = newPosition[0] * TILE_SIZE;
-    player.position.y = newPosition[1] * TILE_SIZE;
+  const playerCoordX = positionToTile(player.position.x);
+  const playerCoordY = positionToTile(player.position.y);
+  const newCoords: Coordinates = {
+    x: playerCoordX + DirectionChange[direction][0],
+    y: playerCoordY + DirectionChange[direction][1],
+  };
+  if (isPositionValid(newCoords, room)) {
+    player.position.x = tileToPosition(newCoords.x);
+    player.position.y = tileToPosition(newCoords.y);
   }
 }
 
-export function isPositionValid(
-  newPosition: SpriteTilePosition,
-  room: Room
-): boolean {
-  return room[newPosition[0]][newPosition[1]] !== 1;
+export function isPositionValid(position: Coordinates, room: Room): boolean {
+  return room[position.x][position.y] !== 1;
 }

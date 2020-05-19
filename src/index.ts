@@ -4,6 +4,7 @@ import { baseRoom } from "./rooms";
 import { TILE_SIZE, SIZE } from "./config";
 import { renderRoom, movePlayer } from "./renderer";
 import { Direction } from "./types";
+import { tileToPosition } from "./positionService";
 
 const app = new Application({
   width: SIZE,
@@ -16,22 +17,22 @@ const player = new Graphics();
 
 player.beginFill(0x444444);
 player.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
-player.position.set(5 * TILE_SIZE, 4 * TILE_SIZE);
+player.position.set(tileToPosition(4), tileToPosition(5));
 app.stage.addChild(player);
 
 window.addEventListener(
   "keydown",
   (event) => {
-    if (event.code === "KeyW") {
+    if (["KeyW", "ArrowUp"].includes(event.code)) {
       movePlayer(player, baseRoom, Direction.UP);
     }
-    if (event.code === "KeyS") {
+    if (["KeyS", "ArrowDown"].includes(event.code)) {
       movePlayer(player, baseRoom, Direction.DOWN);
     }
-    if (event.code === "KeyA") {
+    if (["KeyA", "ArrowLeft"].includes(event.code)) {
       movePlayer(player, baseRoom, Direction.LEFT);
     }
-    if (event.code === "KeyD") {
+    if (["KeyD", "ArrowRight"].includes(event.code)) {
       movePlayer(player, baseRoom, Direction.RIGHT);
     }
   },

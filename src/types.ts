@@ -1,6 +1,9 @@
 export type Room = number[][];
 
-export type SpriteTilePosition = [number, number];
+export interface Coordinates {
+  x: number;
+  y: number;
+}
 
 export enum Direction {
   UP = "UP",
