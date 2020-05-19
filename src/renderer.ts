@@ -1,5 +1,5 @@
 import { Application, Graphics } from "pixi.js";
-import { Room, Direction, DirectionChange, Coordinates } from "./types";
+import { Room, Direction, DirectionChange, SpriteCoordinates } from "./types";
 import { TILE_SIZE, NUM_OF_TILES } from "./config";
 import { tileToPosition, positionToTile } from "./positionService";
 
@@ -23,7 +23,7 @@ export function movePlayer(
 ): void {
   const playerCoordX = positionToTile(player.position.x);
   const playerCoordY = positionToTile(player.position.y);
-  const newCoords: Coordinates = {
+  const newCoords: SpriteCoordinates = {
     x: playerCoordX + DirectionChange[direction][0],
     y: playerCoordY + DirectionChange[direction][1],
   };
@@ -33,6 +33,9 @@ export function movePlayer(
   }
 }
 
-export function isPositionValid(position: Coordinates, room: Room): boolean {
+export function isPositionValid(
+  position: SpriteCoordinates,
+  room: Room
+): boolean {
   return room[position.x][position.y] !== 1;
 }

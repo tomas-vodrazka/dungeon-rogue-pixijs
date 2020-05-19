@@ -4,6 +4,18 @@ export interface Coordinates {
   x: number;
   y: number;
 }
+export interface SpriteCoordinates {
+  x: number;
+  y: number;
+}
+
+export interface RoomCoordinates extends Coordinates {
+  roomType: RoomType;
+}
+
+export enum RoomType {
+  BASIC = 1,
+}
 
 export enum Direction {
   UP = "UP",
